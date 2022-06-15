@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1042254155078",
+    "project_id": "gatherotherpeople",
+    "storage_bucket": "gatherotherpeople.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042254155078:android:fc907699b51810f74c2947",
+        "android_client_info": {
+          "package_name": "com.denizdogan.gop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042254155078-og0dmjov639of477t8aopc00c8avcv9o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.denizdogan.gop",
+            "certificate_hash": "e503100f3129f2a972a4cd58e8142e2a389f6da8"
+          }
+        },
+        {
+          "client_id": "1042254155078-8cighkr221on7crcoir4bi6ljqoavot1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA53027dllnUd2tyQBAK0u6ZihlBrTuXdc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042254155078-8cighkr221on7crcoir4bi6ljqoavot1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
