@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gop/FrontEnd/MainScreens/common_main_methods.dart';
+import 'package:gop/Registry/etkinliklerKayit.dart';
 
 class EtkinliklerPage extends StatefulWidget {
   const EtkinliklerPage({Key? key}) : super(key: key);
@@ -37,7 +38,8 @@ class _EtkinliklerPageState extends State<EtkinliklerPage> {
               options: CarouselOptions(
                 scrollDirection: Axis.vertical,
                 enableInfiniteScroll: false,
-                height: 2000,
+                height: double.infinity,
+                enlargeCenterPage: true,
                 autoPlay: false,
               ),
               items: imageList
@@ -48,9 +50,16 @@ class _EtkinliklerPageState extends State<EtkinliklerPage> {
                             IconButton(
                               icon: Image.network(
                                 e,
+                                fit: BoxFit.fill,
+                                height: double.infinity,
+                                width: double.infinity,
                               ),
                               onPressed: () {
                                 print("pressed the image");
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => EtkinliklerKayit()));
                               },
                             ),
                           ],

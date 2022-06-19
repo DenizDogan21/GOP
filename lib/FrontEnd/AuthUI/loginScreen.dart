@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
       tf: false,
       validator: (String? inputVal) {
         if (!emailRegex.hasMatch(inputVal.toString()))
-          return "Bu bir üniversite adresi değil";
+          return "Geçerli Bir Mail Adresi Girin";
         return null;
       },
       textEditingController: this._email);
