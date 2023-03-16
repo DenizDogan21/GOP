@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gop/FrontEnd/MainScreens/common_main_methods.dart';
+import 'package:gop/FrontEnd/MainScreens/common_bg_appb.dart';
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({Key? key}) : super(key: key);

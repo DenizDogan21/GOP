@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:gop/FrontEnd/MainScreens/common_main_methods.dart';
-import 'package:gop/Registry/etkinliklerKayit.dart';
+import 'package:gop/FrontEnd/MainScreens/common_bg_appb.dart';
+
+import '../Registry/etkinliklerKayit.dart';
 
 class EtkinliklerPage extends StatefulWidget {
   const EtkinliklerPage({Key? key}) : super(key: key);

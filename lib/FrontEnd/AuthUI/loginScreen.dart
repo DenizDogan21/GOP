@@ -47,9 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget buildForgotPassBtn() {
     return Container(
       alignment: Alignment.centerRight,
-      child: FlatButton(
+      child: TextButton(
           onPressed: () => print('Forgot Password Pressed'),
-          padding: EdgeInsets.only(right: 0),
           child: Text(
             'Şifreni mi Unuttun ?',
             style: TextStyle(
@@ -62,7 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget buildRememberCb() {
     return Container(
-      height: 20,
       child: Row(
         children: <Widget>[
           Theme(
@@ -212,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           children: [
                             buildForgotPassBtn(),
-                            SizedBox(width: 100),
+                            SizedBox(width: 80),
                             buildRememberCb(),
                           ],
                         ),

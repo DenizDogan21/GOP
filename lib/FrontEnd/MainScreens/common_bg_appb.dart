@@ -2,13 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gop/FrontEnd/AuthUI/loginScreen.dart';
 import 'package:gop/FrontEnd/Popup/canliVideolarPage.dart';
-import 'package:gop/FrontEnd/Popup/etkinliklerPage.dart';
 import 'package:gop/FrontEnd/Popup/goruntuluKonusmaPage.dart';
 import 'package:gop/FrontEnd/Popup/kullaniciAyarlariPage.dart';
-import 'package:gop/FrontEnd/Popup/partTimeIslerPage.dart';
 import 'package:gop/FrontEnd/Popup/profilPage.dart';
-import 'package:gop/FrontEnd/Popup/topluluklarPage.dart';
-import 'package:gop/FrontEnd/Popup/yakinimdakiArkadaslarPage.dart';
 
 Widget background(BuildContext context) {
   return Scaffold(
@@ -44,46 +40,26 @@ Widget appBar(BuildContext context) {
   void onSelected(BuildContext context, int item) {
     switch (item) {
       case 0:
-        print("Pressed Etkinlikler");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => EtkinliklerPage()));
-        break;
-      case 1:
-        print("Pressed Yakınımdaki Arkadaşlar");
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => YakinimdakiArkadaslarPage()));
-        break;
-      case 2:
-        print("Pressed Part Time İşler");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => PartTimeIslerPage()));
-        break;
-      case 3:
-        print("Pressed Topluluklar");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => TopluluklarPage()));
-        break;
-      case 4:
         print("Pressed Canlı Videolar");
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => CanliVideolarPage()));
         break;
-      case 5:
+      case 1:
         print("Pressed Kullanıcı Ayarları");
         Navigator.push(context,
             MaterialPageRoute(builder: (_) => KullaniciAyarlariPage()));
         break;
-      case 6:
+      case 2:
         print("Pressed Profil");
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => ProfilPage()));
         break;
-      case 7:
+      case 3:
         print("Pressed Görüntülü Konuşma");
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => GoruntuluKonusmaPage()));
         break;
-      case 8:
+      case 4:
         print("Pressed Çıkış");
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => LoginScreen()));
@@ -128,65 +104,38 @@ Widget appBar(BuildContext context) {
           itemBuilder: (context) => [
             PopupMenuItem(
               value: 0,
-              child: Text("Etkinlikler"),
-              height: 45,
+              child: Text("Canlı Videolar"),
+              height: 28,
             ),
             PopupMenuDivider(),
             PopupMenuItem(
               value: 1,
-              child: Text("Yakınımdaki Arkadaşlar"),
-              height: 45,
+              child: Text("Kullanıcı Ayarları"),
+              height: 28,
             ),
             PopupMenuDivider(),
             PopupMenuItem(
               value: 2,
-              child: Text("Part Time İşler"),
-              height: 45,
+              child: Text("Profil"),
+              height: 28,
             ),
             PopupMenuDivider(),
             PopupMenuItem(
               value: 3,
-              child: Text("Topluluklar"),
-              height: 45,
-            ),
-            PopupMenuDivider(),
-            PopupMenuItem(
-              value: 4,
-              child: Text("Canlı Videolar"),
-              height: 45,
-            ),
-            PopupMenuDivider(),
-            PopupMenuItem(
-              value: 5,
-              child: Text("Kullanıcı Ayarları"),
-              height: 45,
-            ),
-            PopupMenuDivider(),
-            PopupMenuItem(
-              value: 6,
-              child: Text("Profil"),
-              height: 45,
-            ),
-            PopupMenuDivider(),
-            PopupMenuItem(
-              value: 7,
               child: Text("Görüntülü Konuşma"),
-              height: 45,
+              height: 28,
             ),
             PopupMenuDivider(
               height: 20,
             ),
             PopupMenuItem(
-              height: 45,
-              value: 8,
+              height: 28,
+              value: 4,
               child: Row(
                 children: [
                   Icon(
                     Icons.exit_to_app,
                     color: Colors.white,
-                  ),
-                  const SizedBox(
-                    width: 8,
                   ),
                   Text("Çıkış"),
                 ],
@@ -198,13 +147,38 @@ Widget appBar(BuildContext context) {
     ],
   );
 }
-
-@override
+/*
 Widget bottomNav(BuildContext context) {
-  int currentIndex = 0;
+  return GNav(
+    currentIndex:
+      padding: EdgeInsets.all(16),
+      backgroundColor: Colors.white,
+      activeColor: Colors.amber[800],
+      color: Colors.amber[400],
+      tabBackgroundColor: Colors.amberAccent,
+      tabBorderRadius: 13,
+      onTabChange: (index) {
+        print(index);
+      },
+      tabs: [
+        GButton(
+          icon: Icons.home,
+          text: 'Kampüs',
+        ),
+        GButton(
+          icon: Icons.photo_camera_sharp,
+          text: 'Kamera',
+        ),
+        GButton(
+          icon: Icons.message,
+          text: 'Mesajlar',
+        ),
+      ]);
+} */
+
+Widget bottomNav(BuildContext context) {
   return BottomNavigationBar(
-    currentIndex: currentIndex,
-    onTap: (index) => setState(() => currentIndex = index),
+    currentIndex: 0,
     backgroundColor: Colors.white,
     selectedItemColor: Colors.amber[800],
     unselectedItemColor: Colors.amber[400],
@@ -224,8 +198,4 @@ Widget bottomNav(BuildContext context) {
       ),
     ],
   );
-}
-
-setState(int Function() param0) {
-  print("pressed");
 }

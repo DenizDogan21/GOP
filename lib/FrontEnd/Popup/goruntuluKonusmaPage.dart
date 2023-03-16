@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:gop/FrontEnd/MainScreens/common_main_methods.dart';
+import 'package:gop/FrontEnd/MainScreens/common_bg_appb.dart';
 
 class GoruntuluKonusmaPage extends StatefulWidget {
   const GoruntuluKonusmaPage({Key? key}) : super(key: key);

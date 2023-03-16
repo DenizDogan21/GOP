@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import 'common_main_methods.dart';
+import 'common_bg_appb.dart';
 
 class MesajlarPage extends StatefulWidget {
   const MesajlarPage({Key? key}) : super(key: key);
