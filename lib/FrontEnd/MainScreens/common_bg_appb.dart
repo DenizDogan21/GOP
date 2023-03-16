@@ -45,9 +45,9 @@ Widget appBar(BuildContext context) {
             context, MaterialPageRoute(builder: (_) => CanliVideolarPage()));
         break;
       case 1:
-        print("Pressed Kullanıcı Ayarları");
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => KullaniciAyarlariPage()));
+        print("Pressed Görüntülü Konuşma");
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => GoruntuluKonusmaPage()));
         break;
       case 2:
         print("Pressed Profil");
@@ -55,9 +55,9 @@ Widget appBar(BuildContext context) {
             context, MaterialPageRoute(builder: (_) => ProfilPage()));
         break;
       case 3:
-        print("Pressed Görüntülü Konuşma");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => GoruntuluKonusmaPage()));
+        print("Pressed Kullanıcı Ayarları");
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => KullaniciAyarlariPage()));
         break;
       case 4:
         print("Pressed Çıkış");
