@@ -110,7 +110,7 @@ Widget appBar(BuildContext context) {
             PopupMenuDivider(),
             PopupMenuItem(
               value: 1,
-              child: Text("Kullanıcı Ayarları"),
+              child: Text("Görüntülü Konuşma"),
               height: 28,
             ),
             PopupMenuDivider(),
@@ -122,7 +122,7 @@ Widget appBar(BuildContext context) {
             PopupMenuDivider(),
             PopupMenuItem(
               value: 3,
-              child: Text("Görüntülü Konuşma"),
+              child: Text("Kullanıcı Ayarları"),
               height: 28,
             ),
             PopupMenuDivider(
