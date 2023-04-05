@@ -210,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           children: [
                             buildForgotPassBtn(),
-                            SizedBox(width: 80),
+                            SizedBox(width: 70),
                             buildRememberCb(),
                           ],
                         ),

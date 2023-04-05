@@ -1,7 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:gop/FrontEnd/MainScreens/common_bg_appb.dart';
 
 class CanliVideolarPage extends StatefulWidget {

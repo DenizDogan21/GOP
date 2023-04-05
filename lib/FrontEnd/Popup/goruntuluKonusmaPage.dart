@@ -15,7 +15,8 @@ class _GoruntuluKonusmaPageState extends State<GoruntuluKonusmaPage> {
   Widget buildBottomNav() => bottomNav(context);
 
   final List<String> imageList = [
-    "https://st.depositphotos.com/12121852/51307/v/600/depositphotos_513072960-stock-video-middle-aged-man-talking-on.jpg",
+    "https://st.depositphotos.com/57718742/58208/i/600/depositphotos_582085924-stock-photo-vertical-selfie-portrait-young-african.jpg",
+    "https://img.freepik.com/free-photo/smiley-man-taking-selfie-outdoors-medium-shot_23-2149556990.jpg?w=2000"
   ];
 
   @override
@@ -32,27 +33,31 @@ class _GoruntuluKonusmaPageState extends State<GoruntuluKonusmaPage> {
           Center(
             child: CarouselSlider(
               options: CarouselOptions(
-                scrollDirection: Axis.vertical,
-                enableInfiniteScroll: false,
-                height: 2000,
-                autoPlay: false,
-              ),
+                  padEnds: false,
+                  scrollDirection: Axis.vertical,
+                  enableInfiniteScroll: false,
+                  autoPlay: false,
+                  height: double.maxFinite,
+                  viewportFraction: 1),
               items: imageList
-                  .map((e) => ClipRRect(
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: <Widget>[
-                            IconButton(
-                              icon: Image.network(
-                                e,
-                              ),
-                              onPressed: () {
-                                print("pressed the image");
-                              },
-                            ),
-                          ],
+                  .map((e) => Container(
+                  child: SizedBox(
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Image.network(
+                            e,
+                            width: MediaQuery.of(context).size.width,
+                            fit: BoxFit.cover,
+                          ),
+                          onPressed: () {
+                            print("pressed the image");
+                          },
                         ),
-                      ))
+                      ],
+                    ),
+                  )))
                   .toList(),
             ),
           ),
