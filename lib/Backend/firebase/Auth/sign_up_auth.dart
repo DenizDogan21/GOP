@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gop/Global_Uses/enum_gop.dart';
 
 class EmailAndPasswordAuth {
-  Future<EmailSignUpResults> signUpAuth(
+  Future<EmailSignUpResults> signUpAuthWithDomainCheck(
       {required String email, required String pwd}) async {
+    if (!email.endsWith("edu.tr")) {
+      return EmailSignUpResults.EmailDomainInvalid;
+    }
     try {
       final UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pwd);

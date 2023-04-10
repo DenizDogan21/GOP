@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gop/Backend/firebase/Auth/sign_up_auth.dart';
@@ -127,19 +126,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
           SystemChannels.textInput.invokeMethod('TextInput.hide');
           final EmailSignUpResults response = await this
               ._EmailandPasswordAuth
-              .signUpAuth(email: this._email.text, pwd: this._pwd.text);
+              .signUpAuthWithDomainCheck(email: this._email.text, pwd: this._pwd.text);
           if (response == EmailSignUpResults.SignUpCompleted) {
             Navigator.push(
                 context, MaterialPageRoute(builder: (_) => LoginScreen()));
           } else {
-            final String msg =
-                response == EmailSignUpResults.EmailAlreadyPresent
-                    ? 'Bu email zaten kullanılmakta'
-                    : 'Kaydolma başarısız';
+            String msg;
+            if (response == EmailSignUpResults.EmailAlreadyPresent) {
+              msg = 'Bu email zaten kullanılmakta';
+            } else if (response == EmailSignUpResults.EmailDomainInvalid) {
+              msg = 'Geçersiz e-posta alan adı, lütfen @edu.tr uzantılı bir e-posta adresi kullanın.';
+            } else {
+              msg = 'Kaydolma başarısız';
+            }
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(msg),
             ));
           }
+
           /* }  else {
             print("not validated");
           } burayabak */

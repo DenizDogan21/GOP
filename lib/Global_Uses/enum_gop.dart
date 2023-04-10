@@ -2,6 +2,7 @@ enum EmailSignUpResults {
   SignUpCompleted,
   EmailAlreadyPresent,
   SignUpNotCompleted,
+  EmailDomainInvalid,
 }
 
 enum EmailSignInResults {
