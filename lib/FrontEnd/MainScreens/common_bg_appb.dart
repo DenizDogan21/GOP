@@ -90,7 +90,8 @@ Widget appBar(BuildContext context) {
         data: Theme.of(context).copyWith(
           dividerColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.amber[800]),
-          textTheme: TextTheme().apply(bodyColor: Colors.white),
+          textTheme: TextTheme().apply(bodyColor: Colors.amber[400]),
+          selectedRowColor: Colors.amber
         ),
         child: PopupMenuButton<int>(
           child: Padding(
@@ -99,7 +100,7 @@ Widget appBar(BuildContext context) {
           ),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(15))),
-          color: Colors.orange,
+          color: Colors.amber[600],
           onSelected: (item) => onSelected(context, item),
           itemBuilder: (context) => [
             PopupMenuItem(

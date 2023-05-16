@@ -114,9 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
         onPressed: () async {
-          // if (this._signUpKey.currentState!.validate()) {
           print("Validated");
-          //burayabak
           if (mounted) {
             setState(() {
               this._isLoading = true;
@@ -135,7 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             if (response == EmailSignUpResults.EmailAlreadyPresent) {
               msg = 'Bu email zaten kullanılmakta';
             } else if (response == EmailSignUpResults.EmailDomainInvalid) {
-              msg = 'Geçersiz e-posta alan adı, lütfen @edu.tr uzantılı bir e-posta adresi kullanın.';
+              msg = 'Geçersiz e-posta alan adı, lütfen üniversitenizin mail adresini kullanın.';
             } else {
               msg = 'Kaydolma başarısız';
             }
@@ -143,10 +141,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               content: Text(msg),
             ));
           }
-
-          /* }  else {
-            print("not validated");
-          } burayabak */
           if (mounted) {
             setState(() {
               this._isLoading = false;
