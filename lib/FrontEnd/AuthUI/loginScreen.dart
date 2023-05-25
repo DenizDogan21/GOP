@@ -5,6 +5,7 @@ import 'package:gop/FrontEnd/AuthUI/common_auth_methods.dart';
 import 'package:gop/Global_Uses/enum_gop.dart';
 import 'package:gop/Global_Uses/reg_exp.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Backend/firebase/Auth/sign_up_auth.dart';
 import '../MainScreens/kampusPage.dart';
@@ -26,23 +27,46 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _isLoading = false;
 
-  Widget buildEmail() => commonTextFormField(
-      hintText: "email",
-      icon: Icons.email,
-      tf: false,
-      validator: (String? inputVal) {
-        if (!emailRegex.hasMatch(inputVal.toString()))
-          return "Geçerli Bir Mail Adresi Girin";
-        return null;
+  Widget buildEmail() {
+    return FutureBuilder<String?>(
+      future: savedEmail,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          _email.text = snapshot.data!; // Set initial value from saved credentials
+        }
+        return commonTextFormField(
+          hintText: "email",
+          icon: Icons.email,
+          tf: false,
+          validator: (String? inputVal) {
+            if (!emailRegex.hasMatch(inputVal.toString()))
+              return "Geçerli Bir Mail Adresi Girin";
+            return null;
+          },
+          textEditingController: this._email,
+        );
       },
-      textEditingController: this._email);
+    );
+  }
 
-  Widget buildPassword() => commonTextFormField(
-      hintText: "şifre",
-      icon: Icons.lock,
-      tf: true,
-      validator: (String? inputVal) {},
-      textEditingController: this._pwd);
+  Widget buildPassword() {
+    return FutureBuilder<String?>(
+      future: savedPassword,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          _pwd.text = snapshot.data!; // Set initial value from saved credentials
+        }
+        return commonTextFormField(
+          hintText: "şifre",
+          icon: Icons.lock,
+          tf: true,
+          validator: (String? inputVal) {},
+          textEditingController: this._pwd,
+        );
+      },
+    );
+  }
+
 
   Widget buildForgotPassBtn() {
     return Container(
@@ -109,9 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         onPressed: () async {
-          // if (this._loginKey.currentState!.validate()) {
-          //burayabak
-          print("Not validated");
+          // Hide keyboard
           SystemChannels.textInput.invokeMethod('TextInput.hide');
 
           if (mounted) {
@@ -119,38 +141,45 @@ class _LoginScreenState extends State<LoginScreen> {
               this._isLoading = true;
             });
           }
-          final EmailSignInResults emailSignInResults =
-              await _emailAndPasswordAuth.signInWithEmailAndPassword(
-                  email: this._email.text, pwd: this._pwd.text);
-          String msg = "";
-          if (emailSignInResults == EmailSignInResults.SignInCompleted)
-            Navigator.pushAndRemoveUntil(
+          final String email = this._email.text ?? '';
+          final String password = this._pwd.text ?? '';
+
+          if (email.isNotEmpty && password.isNotEmpty) {
+            final EmailSignInResults emailSignInResults =
+            await _emailAndPasswordAuth.signInWithEmailAndPassword(
+                email: email, pwd: password);
+            String msg = "";
+            if (emailSignInResults == EmailSignInResults.SignInCompleted) {
+              Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (_) => HomePage()),
-                (route) => false);
-          else if (emailSignInResults == EmailSignInResults.EmailNotVerified) {
-            msg =
-                "Email adresiniz doğrulanmamış.\n Lütfen posta kutunuzu kontrol edin";
-          } else if (emailSignInResults ==
-              EmailSignInResults.EmailOrPasswordInvalid) {
-            msg = "Email ya da şifre hatalı";
-          } else
-            msg = "Giriş yapılamadı";
-          if (msg != "")
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(msg)));
-          /* } */ else {
-            print("Validated");
+                    (route) => false,
+              );
+            } else if (emailSignInResults == EmailSignInResults.EmailNotVerified) {
+              msg = "Email adresiniz doğrulanmamış.\n Lütfen posta kutunuzu kontrol edin";
+            } else if (emailSignInResults == EmailSignInResults.EmailOrPasswordInvalid) {
+              msg = "Email ya da şifre hatalı";
+            } else {
+              msg = "Giriş yapılamadı";
+            }
+            if (msg.isNotEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+            }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Email and password are required.')));
           }
+
           if (mounted) {
             setState(() {
               this._isLoading = false;
             });
           }
-        }, //burayabak
+        },
       ),
     );
   }
+
 
   Widget switchToSignUp() =>
       switchAnotherAuthScreen(context, 'Henüz bir hesabın yok mu ?');
@@ -228,3 +257,15 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+
+Future<String?> get savedEmail async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('email');
+}
+
+Future<String?> get savedPassword async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('password');
+}
+
