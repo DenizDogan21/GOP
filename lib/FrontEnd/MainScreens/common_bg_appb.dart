@@ -5,6 +5,9 @@ import 'package:gop/FrontEnd/Popup/canliVideolarPage.dart';
 import 'package:gop/FrontEnd/Popup/goruntuluKonusmaPage.dart';
 import 'package:gop/FrontEnd/Popup/kullaniciAyarlariPage.dart';
 import 'package:gop/FrontEnd/Popup/profilPage.dart';
+import 'package:gop/FrontEnd/MainScreens/mesajlarPage.dart';
+import 'package:gop/FrontEnd/MainScreens/kampusPage.dart';
+import 'package:gop/FrontEnd/MainScreens/kameraPage.dart';
 
 Widget background(BuildContext context) {
   return Scaffold(
@@ -99,8 +102,8 @@ Widget appBar(BuildContext context) {
             child: Icon(Icons.menu),
           ),
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15))),
-          color: Colors.amber[600],
+              borderRadius: BorderRadius.all(Radius.circular(2))),
+          color: Colors.amber[400],
           onSelected: (item) => onSelected(context, item),
           itemBuilder: (context) => [
             PopupMenuItem(
@@ -179,24 +182,51 @@ Widget bottomNav(BuildContext context) {
 
 Widget bottomNav(BuildContext context) {
   return BottomNavigationBar(
-    currentIndex: 0,
     backgroundColor: Colors.white,
-    selectedItemColor: Colors.amber[800],
-    unselectedItemColor: Colors.amber[400],
+    fixedColor: Colors.amber[600],
     showUnselectedLabels: false,
+    showSelectedLabels: false,
     items: [
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
-        label: "kampüs",
+        label: "",
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.photo_camera_sharp),
-        label: "kamera",
+        label: "",
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.message),
-        label: "mesajlar",
+        label: "",
       ),
     ],
+    onTap: (int index) {
+      // Handle navigation based on the tapped item
+      switch (index) {
+      case 0:
+      // Navigate to "kampüs" page
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => HomePage()),
+      );
+      break;
+      case 1:
+      // Navigate to "kamera" page
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => KameraPage()),);
+      break;
+      case 2:
+      // Navigate to "mesajlar" page
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => MesajlarPage()),
+      );
+      break;
+      }
+    },
   );
 }
+
+
+
