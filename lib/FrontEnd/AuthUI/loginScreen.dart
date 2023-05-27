@@ -90,14 +90,15 @@ class _LoginScreenState extends State<LoginScreen> {
           Theme(
             data: ThemeData(unselectedWidgetColor: Colors.white),
             child: Checkbox(
-                value: isRememberMe,
-                checkColor: Colors.orange,
-                activeColor: Colors.white,
-                onChanged: (value) {
-                  setState(() {
-                    isRememberMe = value!;
-                  });
-                }),
+              value: isRememberMe,
+              checkColor: Colors.orange,
+              activeColor: Colors.white,
+              onChanged: (value) {
+                setState(() {
+                  isRememberMe = value!;
+                });
+              },
+            ),
           ),
           Text(
             'Beni Hatırla',
@@ -110,6 +111,25 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+
+  Future<bool> _checkSavedCredentials() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('email');
+    final String? password = prefs.getString('password');
+    if (email != null && password != null) {
+      // Add your validation logic here if required
+      return true; // Credentials are valid
+    }
+    return false; // Credentials are not valid or not saved
+  }
+
+
+
+
+
+
+
 
   Widget buildLoginBtn(BuildContext context, String buttonName) {
     return Container(
@@ -147,9 +167,18 @@ class _LoginScreenState extends State<LoginScreen> {
           if (email.isNotEmpty && password.isNotEmpty) {
             final EmailSignInResults emailSignInResults =
             await _emailAndPasswordAuth.signInWithEmailAndPassword(
-                email: email, pwd: password);
+              email: email,
+              pwd: password,
+            );
             String msg = "";
             if (emailSignInResults == EmailSignInResults.SignInCompleted) {
+              if (isRememberMe) {
+                // Save credentials if "Remember Me" is checked
+                await saveCredentials(email, password);
+              } else {
+                // Clear saved credentials if "Remember Me" is not checked
+                await clearCredentials();
+              }
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (_) => HomePage()),
@@ -181,11 +210,36 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 
+  Future<void> saveCredentials(String email, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('email', email);
+    await prefs.setString('password', password);
+  }
+
+  Future<void> clearCredentials() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('email');
+    await prefs.remove('password');
+  }
+
+
+
   Widget switchToSignUp() =>
       switchAnotherAuthScreen(context, 'Henüz bir hesabın yok mu ?');
 
   @override
   Widget build(BuildContext context) {
+    // Check for saved credentials
+    _checkSavedCredentials().then((isValid) {
+      if (isValid) {
+        // Navigate to HomePage if credentials are valid
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => HomePage()),
+              (route) => false,
+        );
+      }
+    });
     return SafeArea(
       child: Scaffold(
           body: LoadingOverlay(

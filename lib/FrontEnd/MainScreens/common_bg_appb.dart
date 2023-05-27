@@ -8,6 +8,8 @@ import 'package:gop/FrontEnd/Popup/profilPage.dart';
 import 'package:gop/FrontEnd/MainScreens/mesajlarPage.dart';
 import 'package:gop/FrontEnd/MainScreens/kampusPage.dart';
 import 'package:gop/FrontEnd/MainScreens/kameraPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 Widget background(BuildContext context) {
   return Scaffold(
@@ -64,8 +66,8 @@ Widget appBar(BuildContext context) {
         break;
       case 4:
         print("Pressed Çıkış");
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => LoginScreen()));
+        // Logout action
+        logout(context);
         break;
     }
   }
@@ -151,34 +153,8 @@ Widget appBar(BuildContext context) {
     ],
   );
 }
-/*
-Widget bottomNav(BuildContext context) {
-  return GNav(
-    currentIndex:
-      padding: EdgeInsets.all(16),
-      backgroundColor: Colors.white,
-      activeColor: Colors.amber[800],
-      color: Colors.amber[400],
-      tabBackgroundColor: Colors.amberAccent,
-      tabBorderRadius: 13,
-      onTabChange: (index) {
-        print(index);
-      },
-      tabs: [
-        GButton(
-          icon: Icons.home,
-          text: 'Kampüs',
-        ),
-        GButton(
-          icon: Icons.photo_camera_sharp,
-          text: 'Kamera',
-        ),
-        GButton(
-          icon: Icons.message,
-          text: 'Mesajlar',
-        ),
-      ]);
-} */
+
+
 
 Widget bottomNav(BuildContext context) {
   return BottomNavigationBar(
@@ -229,4 +205,19 @@ Widget bottomNav(BuildContext context) {
 }
 
 
+void logout(BuildContext context) async {
+  // Perform logout actions here
+  print("Pressed Çıkış");
 
+  // Clear saved email and password
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove('email');
+  await prefs.remove('password');
+
+  // Navigate back to the LoginScreen and remove all previous routes
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (_) => LoginScreen()),
+        (route) => false,
+  );
+}

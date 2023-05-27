@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:gop/FrontEnd/AuthUI/signUpScreen.dart';
+import 'package:gop/FrontEnd/AuthUI/loginScreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Gather Other People',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: SignUpScreen(),
+      home: LoginScreen(),
     );
   }
 }
