@@ -159,7 +159,8 @@ Widget appBar(BuildContext context) {
 Widget bottomNav(BuildContext context) {
   return BottomNavigationBar(
     backgroundColor: Colors.white,
-    fixedColor: Colors.amber[600],
+    selectedItemColor: Colors.amber[700],
+    unselectedItemColor: Colors.amber[700],
     showUnselectedLabels: false,
     showSelectedLabels: false,
     items: [
@@ -203,6 +204,8 @@ Widget bottomNav(BuildContext context) {
     },
   );
 }
+
+
 
 
 void logout(BuildContext context) async {
