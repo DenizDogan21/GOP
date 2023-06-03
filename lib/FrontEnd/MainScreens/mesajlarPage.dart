@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'common_bg_appb.dart';
@@ -15,13 +14,32 @@ class _MesajlarPageState extends State<MesajlarPage> {
   Widget buildBackground() => background(context);
   Widget buildBottomNav() => bottomNav(context);
 
-  final List<String> imageList = [
-    "https://www.anadolu.edu.tr/uploads/anadolu/galeri/photos/5531095733fc1.JPG",
-    "https://media.istockphoto.com/photos/happy-students-walking-together-in-campus-having-break-picture-id1165683016",
-    "https://www.emu.edu.tr/media/gallery_media/media_795_3.jpg",
-    "https://yeditepe.edu.tr/sites/default/files/dsc_5754.jpg",
-    "https://yeditepe.edu.tr/sites/default/files/dsc09124.jpg",
-  ];
+  Widget buildMessageList() {
+    // Replace this with your actual implementation of the message list
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: 13,
+      itemBuilder: (context, index) {
+        return Container(
+          padding: EdgeInsets.all(20.0),
+          margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 7.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                blurRadius: 5.0,
+                spreadRadius: 1.0,
+              ),
+            ],
+          ),
+          child: Text('Message $index'),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,36 +50,14 @@ class _MesajlarPageState extends State<MesajlarPage> {
           child: buildAppBar(),
         ),
         bottomNavigationBar: buildBottomNav(),
-        body: Stack(children: [
-          buildBackground(),
-          Center(
-            child: CarouselSlider(
-              options: CarouselOptions(
-                scrollDirection: Axis.vertical,
-                enableInfiniteScroll: false,
-                height: 2000,
-                autoPlay: false,
-              ),
-              items: imageList
-                  .map((e) => ClipRRect(
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: <Widget>[
-                            IconButton(
-                              icon: Image.network(
-                                e,
-                              ),
-                              onPressed: () {
-                                print("pressed the image");
-                              },
-                            ),
-                          ],
-                        ),
-                      ))
-                  .toList(),
+        body: Stack(
+          children: [
+            buildBackground(),
+            SingleChildScrollView(
+              child: buildMessageList(),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }

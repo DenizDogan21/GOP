@@ -1,7 +1,5 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
-import 'common_bg_appb.dart';
+import 'package:camera/camera.dart';
 
 class KameraPage extends StatefulWidget {
   const KameraPage({Key? key}) : super(key: key);
@@ -11,53 +9,57 @@ class KameraPage extends StatefulWidget {
 }
 
 class _KameraPageState extends State<KameraPage> {
-  Widget buildAppBar() => appBar(context);
-  Widget buildBackground() => background(context);
-  Widget buildBottomNav() => bottomNav(context);
+  late CameraController _cameraController;
+  Future<void>? _cameraInitialization;
 
-  final List<String> imageList = [
-    "https://yeditepe.edu.tr/sites/default/files/dsc09124.jpg",
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _initializeCamera();
+  }
+
+  Future<void> _initializeCamera() async {
+    // Initialize the camera controller
+    final cameras = await availableCameras();
+    _cameraController = CameraController(cameras[0], ResolutionPreset.high);
+    await _cameraController.initialize();
+
+    // Other initialization logic if needed
+  }
+
+  @override
+  void dispose() {
+    _cameraController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(55.0),
-          child: buildAppBar(),
-        ),
-        bottomNavigationBar: buildBottomNav(),
-        body: Stack(children: [
-          buildBackground(),
-          Center(
-            child: CarouselSlider(
-              options: CarouselOptions(
-                scrollDirection: Axis.vertical,
-                enableInfiniteScroll: false,
-                height: 2000,
-                autoPlay: false,
-              ),
-              items: imageList
-                  .map((e) => ClipRRect(
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: <Widget>[
-                            IconButton(
-                              icon: Image.network(
-                                e,
-                              ),
-                              onPressed: () {
-                                print("pressed the image");
-                              },
-                            ),
-                          ],
-                        ),
-                      ))
-                  .toList(),
-            ),
-          ),
-        ]),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Kamera'),
+      ),
+      body: _cameraInitialization == null
+          ? Center(
+        child: CircularProgressIndicator(),
+      )
+          : FutureBuilder<void>(
+        future: _cameraInitialization,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('Failed to initialize camera'),
+              );
+            } else {
+              return CameraPreview(_cameraController);
+            }
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
